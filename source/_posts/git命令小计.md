@@ -3,6 +3,7 @@ title: git命令小计
 date: 2021-06-27 21:20:42
 tags:
 ---
+## git命令小计
 
 - `git init`初始化一个本地git仓库repository
 - `git status`查看状态

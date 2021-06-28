@@ -68,6 +68,4 @@ tags:
 说完了这几种常见的异步加载js脚本的方式，再来看最后一个问题，什么时候用`defer`，什么时候用`async`呢？一般来说，两者之间的选择则是看脚本之间是否有依赖关系，有依赖的话应当要保证执行顺序，应当使用`defer`没有依赖的话使用`async`，同时使用的话`defer`失效。要注意的是两者都不应该使用`document.write()`，这个导致整个页面被清除重写。
 
 下面一幅图表明了同步加载以及`defer`、`async`加载时的区别，其中绿色线代表 HTML 解析，蓝色线代表网络读取js脚本，红色线代表js脚本执行时间：
-![js-load](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/js-load.jpg)
-
-
+![js-load](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/js-load/js-load.jpg)

@@ -29,7 +29,8 @@ tags:
 所以说，在中国，企业的域名一般可以是`xxx.com`、`xxx.com.cn`、`xxx.cn`。
 
 下面这个域名树，清晰地展示了互联网的域名空间：
-![互联网的域名结构](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E5%9F%9F%E5%90%8D%E7%BB%93%E6%9E%84.png)
+
+![互联网的域名结构](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS-protocol/domain-name-tree.png)
 
 
 
@@ -39,11 +40,13 @@ tags:
 
 #### 2. 域名服务器（DNS服务器）
 上面说到了域名体系的树状结构，为了实现域名系统，我们首先想到的就是在域名树的每个节点都设置一台对应的服务器，这样就可以了，但是这样做的后果就是导致域名服务器太多，域名系统的运行效率太低，所以，通常是将好多个节点划分为一个区，用分区的方式来实现域名系统，如下图：
-![DNS分区](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS%E5%88%86%E5%8C%BA.png)
+
+![DNS分区](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS-protocol/DNS-partition.png)
 
 
 其中，(a)是abc这个公司只设置了一个分区的样子，(b)是abc公司设置了两个分区的样子，这两个区分别为`abc.com`和`y.abc.com`，这两个区对应了两个**权限域名服务器**（后面还会提到）。下图可以看出域名服务器的层次结构：
-![域名服务器的层次结构](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.png)
+
+![域名服务器的层次结构](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS-protocol/hierarchy-of-domain-name-servers.png)
 
 
 
@@ -73,12 +76,13 @@ tags:
 
 概念其实很简单，递归查询就是如果主机向本地域名服务器查询IP，本地域名服务器不知道IP地址，这是本地域名服务器就代替主机称为DNS客户，向根域名服务器进行下一步查询。而迭代查询就是，在本地域名服务器向根域名服务器查询时，根域名服务器要么给出最终的IP地址，要么给出下一步本地域名服务器要访问的顶级域名服务器的IP地址，之后本地域名服务器再去访问相应的顶级域名服务器（而不是让根域名服务器代替本地域名服务器去进行下一步查询）。简单来说，递归查询返回具体IP地址或者报错没找到，迭代查询返回具体IP地址或者返回下一步的IP地址。如下图：
 
-![域名迭代查询](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/%E5%9F%9F%E5%90%8D%E8%BF%AD%E4%BB%A3%E6%9F%A5%E8%AF%A2.jpg)
+![域名迭代查询](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS-protocol/domain-name-iterative-query.jpg)
 
 
 
 当然，我们也可以指定查询方式让查询过程全程使用递归查询，如下图：
-![域名递归查询](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/%E5%9F%9F%E5%90%8D%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2.jpg)
+
+![域名递归查询](https://my-cos-1254464911.cos.ap-guangzhou.myqcloud.com/DNS-protocol/domain-name-recursive-query.jpg)
 
 
 下面以一个例子说说明在无缓存的情况下（下面会谈到缓存），通过DNS来查询域名的步骤，假设域名为`m.xyz.com`的主机想要查询`y.abc.com`这个域名对应的IP地址，那么他就会按照域名查询方式1（上图）中的方式进行查询：
