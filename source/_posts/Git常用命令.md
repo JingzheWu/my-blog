@@ -154,6 +154,16 @@ tags:
 - `git diff --cached <filename>`: 比较暂存区和版本库中filename文件的不同
 - `git diff HEAD <filename>`: 比较工作区和版本库中filename文件的不同
 
+## `rev-parse` 命令
+
+- `git rev-parse HEAD`: 获取当前分支的commit id
+- `git rev-parse --short HEAD`: 获取当前分支的commit id的前几位
+- `git rev-parse --abbrev-ref HEAD`: 获取当前分支名
+- `git rev-parse --symbolic --branches`: 获取所有分支的名字
+- `git rev-parse --show-toplevel`: 获取当前git仓库的根目录的绝对路径
+- `git rev-parse --git-dir`: 获取当前git仓库的 `.git` 目录
+- `git rev-parse --show-prefix`: 获取当前目录相对于git仓库根目录的相对路径
+
 ## 其他
 
 ### 1. 首次关联本地仓库到远端空仓库
