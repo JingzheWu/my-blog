@@ -163,6 +163,9 @@ tags:
 - `git rev-parse --show-toplevel`: 获取当前git仓库的根目录的绝对路径
 - `git rev-parse --git-dir`: 获取当前git仓库的 `.git` 目录
 - `git rev-parse --show-prefix`: 获取当前目录相对于git仓库根目录的相对路径
+- `git rev-parse branchName`: 获取本地分支 `branchName` 的commit id
+- `git rev-parse origin/branchName`: 获取远程分支 `branchName` 的commit id
+- `git rev-parse origin/branchName^{commit}`: 和上面一样，获取远程分支 `branchName` 的commit id
 
 ## 其他
 
