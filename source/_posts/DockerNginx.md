@@ -1,4 +1,8 @@
-# 使用 Docker 安装 Nginx
+---
+title: 使用 Docker 安装 Nginx
+date: 2023-12-15 19:37:06
+tags:
+---
 
 ```bash
 docker pull nginx:latest

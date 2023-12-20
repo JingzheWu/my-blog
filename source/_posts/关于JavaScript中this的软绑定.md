@@ -18,44 +18,43 @@ tags:
 在这里，我用的是《你不知道的JavaScript 上》中的软绑定的代码实现：
 
 ```javascript
-if(!Function.prototype.softBind){
-    Function.prototype.softBind=function(obj){
-        var fn=this;
-        var args=Array.prototype.slice.call(arguments,1);
-        var bound=function(){
-            return fn.apply(
-                (!this||this===(window||global))?obj:this,
-                args.concat.apply(args,arguments)
-            );
-        };
-        bound.prototype=Object.create(fn.prototype);
-        return bound;
+if (!Function.prototype.softBind) {
+  Function.prototype.softBind = function (obj) {
+    const fn = this;
+    const args = Array.prototype.slice.call(arguments, 1);
+    const bound = function () {
+      return fn.apply(
+        !this || this === (window || global) ? obj : this,
+        args.concat.apply(args, arguments)
+      );
     };
+    bound.prototype = Object.create(fn.prototype);
+    return bound;
+  };
 }
 ```
 
 我们先来看一下效果，之后再讨论它的实现。
 
 ```javascript
-function foo(){
-    console.log("name: "+this.name);
+function foo() {
+  console.log('name: ' + this.name);
 }
 
-var obj1={name:"obj1"},
-    obj2={name:"obj2"},
-    obj3={name:"obj3"};
+const obj1 = { name: 'obj1' },
+  obj2 = { name: 'obj2' },
+  obj3 = { name: 'obj3' };
 
-var fooOBJ=foo.softBind(obj1);
-fooOBJ();//"name: obj1" 在这里软绑定生效了，成功修改了this的指向，将this绑定到了obj1上
+const fooOBJ = foo.softBind(obj1);
+fooOBJ(); //"name: obj1" 在这里软绑定生效了，成功修改了this的指向，将this绑定到了obj1上
 
-obj2.foo=foo.softBind(obj1);
-obj2.foo();//"name: obj2" 在这里软绑定的this指向成功被隐式绑定修改了，绑定到了obj2上
+obj2.foo = foo.softBind(obj1);
+obj2.foo(); //"name: obj2" 在这里软绑定的this指向成功被隐式绑定修改了，绑定到了obj2上
 
-fooOBJ.call(obj3);//"name: obj3" 在这里软绑定的this指向成功被硬绑定修改了，绑定到了obj3上
+fooOBJ.call(obj3); //"name: obj3" 在这里软绑定的this指向成功被硬绑定修改了，绑定到了obj3上
 
-setTimeout(obj2.foo,1000);//"name: obj1"
-/*回调函数相当于一个隐式的传参，如果没有软绑定的话，这里将会应用默认绑定将this绑定到全局环
-境上，但有软绑定，这里this还是指向obj1*/
+setTimeout(obj2.foo, 1000); //"name: obj1"
+// 回调函数相当于一个隐式的传参，如果没有软绑定的话，这里将会应用默认绑定将this绑定到全局环境上，但有软绑定，这里this还是指向obj1
 ```
 
 可以看到软绑定生效了。下面我们来具体看一下`softBind()`的实现。
@@ -67,21 +66,20 @@ setTimeout(obj2.foo,1000);//"name: obj1"
 其实在第一遍看这个函数时，也有点迷，有一些疑问，比如`var fn=this`这句，在`foo`通过`foo.softBind()`调用`softBind`的时候，fn到底指向谁呢？是指向foo还是指向softBind？我们可以写个demo测试，然后可以很清晰地看出fn指向什么：
 
 ```javascript
-var a=2;
-function foo(){
-}
-foo.a=3;
-Function.prototype.softBind=function(){
-    var fn=this;
-    return function(){
-        console.log(fn.a);
-    }
+const a = 2;
+function foo() {}
+foo.a = 3;
+Function.prototype.softBind = function () {
+  const fn = this;
+  return function () {
+    console.log(fn.a);
+  };
 };
-Function.prototype.a=4;
-Function.prototype.softBind.a=5;
+Function.prototype.a = 4;
+Function.prototype.softBind.a = 5;
 
-foo.softBind()();//3
-Function.prototype.softBind()();//4
+foo.softBind()(); // 3
+Function.prototype.softBind()(); // 4
 ```
 
 可以看出，fn（或者说this）的指向还是遵循this的绑定规则的，`softBind`函数定义在Function的原型`Function.prototype`中，但是JavaScript中函数永远不会“属于”某个对象（不像其他语言如java中类里面定义的方法那样），只是对象内部引用了这个函数，所以在通过下面两种方式调用时，fn（或者说this）分别隐式绑定到了`foo`和`Function.prototype`，所以分别输出3和4。后面的`fn.apply()`也就相当于`foo.apply()`。

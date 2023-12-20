@@ -9,15 +9,17 @@ tags:
 2. 通过`getAttribute()`、`setAttribute()`、`removeAttribute()`
 
     也可以通过这三个DOM方法来操作DOM元素的特性，例如
-    ```
-    let div = document.getElementById("my-div");
+
+    ```javascript
+    const div = document.getElementById("my-div");
     div.getAttribute("id");                 // 获取id
     div.getAttribute("title");              // 获取title
-    div.getAttribute("class");              // 获取元素的CSS类名，因为是传参数给getAttrbute函数，所以可以用class
+    div.getAttribute("class");              // 获取元素的CSS类名，因为是传参数给getAttribute函数，所以可以用class
     div.getAttribute("dat-my-attribute");   // 获取自定义特性
     div.setAttribute("id","anotherId");     // 设置id
     div.removeAttribute("title");           // 删除title
     ```
+
     从上面可以看出来，用这种方法，不仅可以获取到公认的特性，也可以获取自定义的特性。不过有两类特殊的特性，在通过属性获取和通过方法获取时获取到的却不一样，一类是`style`，通过属性访问获取到的是一个对象，通过`getAttribute`获取到的是CSS文本；另一类就是事件处理程序如`onclick`，通过属性获取，得到的是一个函数，而通过`getAttribute`获取得到的则是相应函数代码的字符串。
 3. 通过元素的`attributes`属性
 
@@ -27,10 +29,12 @@ tags:
     - `removeNamedItem(name)`：删除集合中`nodeName`为name的节点
     - `item(pos)`：返回位于数字pos位置的节点
     例如要获取id，有如下代码
-    ```
-    let div = document.getElementById("my-div");
+
+    ```javascript
+    const div = document.getElementById("my-div");
     div.attributes.getNamedItem("id").nodeValue;
     div.attributes["id"].nodeValue;                 //后两行代码都可以获取到id，下面为简写形式
     ```
+
     从上面可以看出，这种方式最麻烦，所以平时基本不用，一般在遍历元素的特性时才会用到。
 上面三种方式中，方式1是最常使用的，其次是2，最后才是第三种方式。

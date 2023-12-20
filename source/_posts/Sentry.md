@@ -4,41 +4,6 @@ date: 2023-12-11 13:05:23
 tags:
 ---
 
-# Sentry治理之Issue分组（Issue Grouping）
-
-- [Sentry治理之Issue分组（Issue Grouping）](#sentry治理之issue分组issue-grouping)
-  - [一、前言](#一前言)
-  - [二、先看看什么是Sentry Issue](#二先看看什么是sentry-issue)
-  - [三、我们遇到啥问题了？](#三我们遇到啥问题了)
-  - [四、研究下Sentry是怎么对Error分组的](#四研究下sentry是怎么对error分组的)
-    - [1. Sentry Issue的Fingerprint和分组](#1-sentry-issue的fingerprint和分组)
-      - [1.1 如何在Sentry上查看一个Event的Fingerprint呢？](#11-如何在sentry上查看一个event的fingerprint呢)
-      - [1.2 Event默认的Fingerprint生成规则](#12-event默认的fingerprint生成规则)
-        - [a. 按照Stack Trace分组](#a-按照stack-trace分组)
-        - [b.按照Exception分组](#b按照exception分组)
-        - [c. 兜底的分组](#c-兜底的分组)
-      - [1.3 分析一下](#13-分析一下)
-      - [1.4 自定义分组](#14-自定义分组)
-    - [2. 手动合并Issue](#2-手动合并issue)
-    - [3. Stack Trace Rules](#3-stack-trace-rules)
-    - [4. Fingerprint Rules](#4-fingerprint-rules)
-      - [4.1 Matchers](#41-matchers)
-      - [4.2 Variables](#42-variables)
-      - [4.3 自定义标题](#43-自定义标题)
-      - [4.4 怎么确定有没有匹配上自定义的Fingerprint Rules?](#44-怎么确定有没有匹配上自定义的fingerprint-rules)
-    - [5. SDK Fingerprint](#5-sdk-fingerprint)
-      - [5.1 基础示例](#51-基础示例)
-      - [5.2 更细粒度地控制分组](#52-更细粒度地控制分组)
-      - [5.3 完全重写Fingerprint](#53-完全重写fingerprint)
-      - [5.4 和Fingerprint Rules怎么划分职责？](#54-和fingerprint-rules怎么划分职责)
-    - [6. Filter](#6-filter)
-      - [6.1 内置过滤器](#61-内置过滤器)
-      - [6.2 自定义过滤器](#62-自定义过滤器)
-        - [a. 特定IP地址](#a-特定ip地址)
-        - [b. 特定发布版本](#b-特定发布版本)
-        - [c. Error Message](#c-error-message)
-  - [五、治理](#五治理)
-  - [六、小结](#六小结)
 
 ## 一、前言
 
