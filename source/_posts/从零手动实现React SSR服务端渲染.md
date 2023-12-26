@@ -92,7 +92,7 @@ SEO，也就是Search Engine Optimization，搜索引擎优化。CSR应用从服
 
 1. `src/components/Button/index.tsx`
 
-```tsx
+```typescript
 import React from 'react';
 import classNames from 'classnames';
 import styles from './index.module.css';
@@ -118,7 +118,7 @@ export const Button: React.FC<IButtonProps> = ({
 
 2. `src/Home.tsx`
 
-```tsx
+```typescript
 import React, { useState } from 'react';
 import { Button } from '@/components/Button';
 import styles from './Home.module.css';
@@ -153,7 +153,7 @@ export const Home: React.FC = () => {
 
 3. `src/index.tsx`
 
-```tsx
+```typescript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Home } from './Home';
@@ -255,7 +255,7 @@ npm install --save-dev @types/express
 
 添加一个`src/server.tsx`：
 
-```tsx
+```typescript
 import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -359,7 +359,7 @@ module.exports = {
 
 首先，`src/server.tsx`中，我们不再直接返回一个模板HTML，而是在上面CSR项目编译出来的HTML中直接加上服务端渲染的内容，同时在服务端提供静态资源访问服务：
 
-```tsx
+```typescript
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
@@ -419,7 +419,7 @@ npm start
 
 来改下代码，在`src/index.tsx`中，改为如下内容：
 
-```tsx
+```typescript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Home } from './Home';
