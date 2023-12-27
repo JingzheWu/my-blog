@@ -1,5 +1,5 @@
 ---
-title: 从零手动实现React SSR服务端渲染
+title: 一起从零实现React SSR服务端渲染
 date: 2023-12-21 17:25:00
 tags:
 ---
@@ -10,9 +10,12 @@ tags:
 
 ## 一、 什么是SSR
 
-SSR，即Server Side Render，服务端渲染。
+SSR，即Server Side Render，服务端渲染。和服务端渲染相对的，就是CSR，Client Side Render，客户端渲染。
 
-和服务端渲染相对的，就是CSR，Client Side Render，客户端渲染。从字面意思上就有看出，这两种渲染方式的差别就在于，服务端渲染就是页面在服务端进行渲染，客户端渲染就是页面会在客户端（浏览器或者WebView之类的）进行渲染。
+从字面意思上就有看出，这两种渲染方式的差别就在于页面渲染的时机：
+
+- 服务端渲染是页面在服务端的时候就渲染完成了
+- 而客户端渲染是页面在客户端（浏览器或者WebView之类的）进行渲染，服务端只会返回空页面（下面例子中会讲到）
 
 ## 二、 为什么需要SSR
 
@@ -42,7 +45,7 @@ SEO，也就是Search Engine Optimization，搜索引擎优化。CSR应用从服
 
 由于CSR应用页面里所有的内容，都是通过JS动态生成的，那么在访问页面的时候，除了下载HTML外，还需要额外下载JS脚本才可以展示出页面。
 
-衡量首屏加载性能的指标有很多，我们这里用常用的[FCP（First Contentful Paint）](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint?utm_source=devtools)来看下这个页面的表现。由于我们这个页面太过简单，而且是在本地`127.0.0.1`启动的服务，所以直接感受可能不明显，我们可以在DevTool里设置网络状态，改成“低速3G”来模拟：
+衡量首屏加载性能的指标有很多，我们这里用常用的[FCP（First Contentful Paint）](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint?utm_source=devtools)，即“首次内容渲染”时间来看下这个页面的表现。由于我们这个页面太过简单，而且是在本地`127.0.0.1`启动的服务，所以直接感受可能不明显，我们可以在DevTool里设置网络状态，改成“低速3G”来模拟：
 
 ![csr_network_panel.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/csr_network_panel.png)
 
