@@ -148,7 +148,7 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 
 因为通过CSS媒体查询虽然方便，但是只能跟随系统的主题颜色变化，假设用户想要类似于下面的自定义主题颜色，不跟随系统变化，或者业务上想做一些什么高级的操作，那么CSS媒体查询就无能为力了。
 
-![custom_theme.gif](https://static.youfindme.cn/blog/dark_mode/custom_theme.gif)
+![custom_theme.gif](https://static.youfindme.cn/blog/dark_mode/custom_mode.gif)
 
 在JS中，可以通过`window.matchMedia('(prefers-color-scheme: dark)').match`来判断当前的颜色主题：
 
