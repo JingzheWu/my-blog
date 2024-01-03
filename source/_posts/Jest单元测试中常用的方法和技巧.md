@@ -453,3 +453,59 @@ test.each<{
 这个插件只针对`.test.js`、`.test.ts`、`.test.tsx`这几个文件类型有效，所以这也是上面建议单测文件使用使用`.test.js`、`.test.ts`、`.test.tsx`命名的原因之一。
 
 同时，插件提供的`Debug`，也省去了繁琐的`launch.json`配置，可以方便地进行断点调试。
+
+## 十五、其他技巧
+
+### 1. jest配合enzyme对React.forwardRef组件进行测试
+
+对于React.forwardRef组件，假设有如下用例
+
+```typescript
+test('render', () => {
+  const wrapper = mount(<Wrapper {...props} />);
+  expect(wrapper.find(/** ComponentName */).exists()).toBeTruthy();
+});
+```
+
+- 对于普通的组件，“ComponentName”只需要填入对应组件的名字即可，如"Text"
+
+  ```typescript
+  expect(wrapper.find('Text').exists()).toBeTruthy();
+  ```
+
+- 但是对于使用了React.forwardRef来进行ref转发的组件，“ComponentName”则需要加上“ForwardRef”，如“ForwardRef(MyComponent)”
+
+  ```typescript
+  expect(wrapper.find('ForwardRef(MyComponent)').exists()).toBeTruthy();
+  ```
+
+### 2. 收集单元测试覆盖率
+
+有以下几种方式收集单元测试覆盖率：
+
+1. 命令行执行全部单测并收集覆盖率
+
+   ```bash
+   npx jest --coverage
+   ```
+
+2. 命令行执行单个单测文件并收集覆盖率
+
+   ```bash
+   npx jest src/utils/__tests__/utils.test.ts --coverage
+   ```
+
+3. 在`jest.config.js`中配置`collectCoverage`，同时设置`collectCoverageFrom`来收集指定文件的覆盖率
+
+   ```typescript
+   module.exports = {
+     // ...
+     collectCoverage: true,
+     collectCoverageFrom: [
+       'src/**/*.{js,jsx,ts,tsx}',
+       '!src/**/*.d.ts',
+     ],
+   };
+   ```
+
+   这样在命令行执行`npx jest`时，就会自动收集覆盖率了。
