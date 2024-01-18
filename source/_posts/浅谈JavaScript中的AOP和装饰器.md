@@ -90,7 +90,7 @@ handleClick = reportExeTime(handleClick);
 
 ### 三、ES6+通过装饰器实现
 
-上面说的是ES6+中装饰器出现前AOP的实现方式，然而装饰器（Decorators）的出现给我们提供了另一种更为优雅的实现方式（本质上和高阶函数类似），虽然到目前为止这个特性也还只是在[提案的第二阶段](https://github.com/tc39/proposal-decorators)，还未真正引入到ES标准中，但是通过Babel（> 7.1.0）或者使用[TypeScript](https://www.tslang.cn/docs/handbook/decorators.html)，就可以提前使用这个特性。
+上面说的是ES6+中装饰器出现前AOP的实现方式，然而装饰器（Decorators）的出现给我们提供了另一种更为优雅的实现方式（本质上和高阶函数类似），虽然到目前为止这个特性也还只是在[提案的第三阶段](https://github.com/tc39/proposal-decorators)，还未真正引入到ES标准中，但是通过Babel（> 7.1.0）或者使用[TypeScript](https://www.tslang.cn/docs/handbook/decorators.html)，就可以提前使用这个特性。
 
 关于装饰器的定义和使用方法已经有很多资料讲解了，这里不做过多介绍，我们来看下用装饰器怎么实现上面的逻辑。很容易想到，这里需要的是**方法装饰**器，首先定义一个上报的方法装饰器`withReport`：
 
