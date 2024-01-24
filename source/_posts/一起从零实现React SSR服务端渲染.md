@@ -136,12 +136,12 @@ export const Home: React.FC = () => {
         <Button
           text="Increment"
           className={styles.btn}
-          onClick={() => setCount(count + 1)}
+          onClick={() => setCount(prev => prev + 1)}
         />
         <Button
           text="Decrement"
           className={styles.btn}
-          onClick={() => setCount(count - 1)}
+          onClick={() => setCount(prev => prev - 1)}
         />
         <Button
           text="Reset"
@@ -410,7 +410,7 @@ npm start
 
 ![ssr_render.gif](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_render.gif)
 
-看起来好像OK了，既有服务端渲染（返回的HTML不为空，直接就有页面上的元素），又有服务端渲染（事件绑定成功，有页面交互）。但是如果这个时候你查看一下控制台的话，会发现会有一个Waring：
+看起来好像OK了，既有服务端渲染（返回的HTML不为空，直接就有页面上的元素），又有客户端渲染（事件绑定成功，有页面交互）。但是如果这个时候你查看一下控制台的话，会发现会有一个Waring：
 
 ![ssr_render_warn.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_render_warn.png)
 
