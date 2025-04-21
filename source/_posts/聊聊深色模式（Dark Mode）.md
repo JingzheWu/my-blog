@@ -12,7 +12,7 @@ tags:
 
 Google也在**Android 10**中推出了类似的深色模式功能，使深色模式得到了更广泛的应用和推广。
 
-![iOS官网的深色模式示例](https://static.youfindme.cn/blog/dark_mode/dark_mode_example.png)
+![iOS官网的深色模式示例](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/dark_mode_example.png)
 
 它不是简单的把背景变为黑色，文字变为白色，而是一整套的配色主题，这种模式相比浅色模式更加柔和，可以减少亮度对用户眼睛造成的刺激和疲劳。
 
@@ -34,8 +34,8 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 1. 打开Chrome DevTools
 2. `Command`+`Shift`+`P`
 3. 输入dark或者light
-4. 打开深色或者浅色模式![打开深色模式](https://static.youfindme.cn/blog/dark_mode/open_dark_mode_in_devtool.png)
-   ![打开浅色模式](https://static.youfindme.cn/blog/dark_mode/open_light_mode_in_devtool.png)
+4. 打开深色或者浅色模式![打开深色模式](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/open_dark_mode_in_devtool.png)
+   ![打开浅色模式](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/open_light_mode_in_devtool.png)
 
 不过要注意的是，浏览器DevTools里开启深色模式，在关闭开发者工具后就会失效。
 
@@ -57,7 +57,7 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 
 通过上述声明，告诉浏览器这个页面支持深色模式和浅色模式，并且页面更倾向于浅色模式。在声明了这个之后，当系统切换到深色模式时，浏览器将会把我们的页面自动切换到默认的深色模式配色，如下所示：
 
-![左边浅色，右边是浏览器自动适配的深色](https://static.youfindme.cn/blog/dark_mode/left_light_right_auto_dark.png)
+![左边浅色，右边是浏览器自动适配的深色](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/left_light_right_auto_dark.png)
 
 ### 2. 在CSS里添加`color-scheme`属性
 
@@ -81,11 +81,11 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 
 在上面说了我们可以通过一些标签或者CSS属性声明，来自动适配深色模式，但是从自动适配的结果来看，适配的并不理想：
 
-![左边浅色，右边是浏览器自动适配的深色](https://static.youfindme.cn/blog/dark_mode/left_light_right_auto_dark.png)
+![左边浅色，右边是浏览器自动适配的深色](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/left_light_right_auto_dark.png)
 
 - 首先是默认的黑色字体，到深色模式下变成了纯白色`#FFFFFF`，和黑色背景（虽然说不是纯黑）对比起来很扎眼，在一些设计相关的文章\[[1](https://36kr.com/p/1724109946881)]\[[2](https://www.woshipm.com/pd/4068702.html)]里提到，深色模式下避免使用纯黑和纯白，否则更容易使人眼睛👁疲劳，同时容易在页面滚动时出现拖影：
 
-    ![滚动时出现拖影，图片来源「即刻」](https://static.youfindme.cn/blog/dark_mode/smearing_when_scrolling.png)
+    ![滚动时出现拖影，图片来源「即刻」](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/smearing_when_scrolling.png)
 
 - 自动适配只能适配没有指定颜色和背景色的内容，比如上面的1、2、3级文字还有背景，没有显式设置`color`和`background-color`。
 
@@ -134,11 +134,11 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 
 通过媒体查询设置元素在深色模式下的1、2、3级文字的颜色，在浅色模式下设置不同的颜色，在深色模式下，增加不透明度：
 
-![左边的是自动适配的浅色深色，右边是自定义适配的浅色深色](https://static.youfindme.cn/blog/dark_mode/left_auto_right_manul.png)
+![左边的是自动适配的浅色深色，右边是自定义适配的浅色深色](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/left_auto_right_manul.png)
 
 对于`prefers-color-scheme`的兼容性也不必担心，主流浏览器基本都支持了：
 
-![prefers-color-scheme](https://static.youfindme.cn/blog/dark_mode/prefers_color_scheme.png)
+![prefers-color-scheme](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/prefers_color_scheme.png)
 
 #### 2). JS监听主题颜色
 
@@ -148,7 +148,7 @@ Google也在**Android 10**中推出了类似的深色模式功能，使深色模
 
 因为通过CSS媒体查询虽然方便，但是只能跟随系统的主题颜色变化，假设用户想要类似于下面的自定义主题颜色，不跟随系统变化，或者业务上想做一些什么高级的操作，那么CSS媒体查询就无能为力了。
 
-![custom_theme.gif](https://static.youfindme.cn/blog/dark_mode/custom_mode.gif)
+![custom_theme.gif](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/custom_mode.gif)
 
 在JS中，可以通过`window.matchMedia('(prefers-color-scheme: dark)').match`来判断当前的颜色主题：
 
@@ -229,7 +229,7 @@ export default useTheme;
 
 `window.matchMedia`的兼容性也挺好的：
 
-![window.matchMedia](https://static.youfindme.cn/blog/dark_mode/window_match_media.png)
+![window.matchMedia](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/dark_mode/window_match_media.png)
 
 通过JS监听颜色主题变化之后，那可玩性就很多了，我们可以通过下面这些方式来适配深色模式：
 

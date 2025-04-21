@@ -73,4 +73,4 @@ tags:
 
 下面一幅图表明了同步加载以及`defer`、`async`加载时的区别，其中绿色线代表 HTML 解析，蓝色线代表网络读取js脚本，红色线代表js脚本执行时间：
 
-![js-load](https://static.youfindme.cn/blog/js-load/js-load.png)
+![js-load](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/js-load/js-load.png)

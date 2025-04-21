@@ -101,7 +101,7 @@ describe('utils.ts 单元测试', () => {
 
 运行单测会得到一个报错
 
-![jest单测报错](https://static.youfindme.cn/blog/jest_techniques/get_error_for_test.png)
+![jest单测报错](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/get_error_for_test.png)
 
 很明显，我们对`funcA`的mock失败了，为什么会有这样的结果呢，因为我们从模块外部导入的`funcA`引用和模块内部直接使用的`funcA`引用并不是同一个，通过`jest.mock`修改`funcA`并不会影响内部的调用。对于这种情况，建议的解决方法有两种：
 
@@ -284,7 +284,7 @@ module.exports = {
 
     像上面那样，`funcA`会在回调里传入1，单测里就算是直接断言结果为2，也是可以直接通过单测的：
 
-    ![callback异步单测](https://static.youfindme.cn/blog/jest_techniques/callback_async_unit_test.png)
+    ![callback异步单测](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/callback_async_unit_test.png)
 
     这是因为jest在运行完`funcA`后就直接结束了，不会等待`setTimeout`的回调，自然也就没有执行`expect`断言。正确的做法是，传入一个`done`参数：
 
@@ -437,18 +437,18 @@ test.each<{
 这点是一个建议，建议单测文件以`.test.js`、`.test.ts`、`.test.tsx`命名，如对于`utils.ts`，建议对应的单测以`utils.test.ts`命名，这样每个单测文件单单从文件名来说就具有清晰的语义，即这是一个单测文件，而不是一个具有具体功能的源码文件。
 
 同时，在搜索文件或者全局搜索字符串时，列表里的文件更清晰可见容易辨认。更进一步来说，现在很多IDE的文件图片icon插件，针对不同的文件名结尾，都有不同的渲染，更加方便辨认：
-![search_file](https://static.youfindme.cn/blog/jest_techniques/search_file.png)
-![global_search](https://static.youfindme.cn/blog/jest_techniques/global_search.png)
+![search_file](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/search_file.png)
+![global_search](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/global_search.png)
 
 ## 十四、配合使用`Jest Runner`插件
 
 另外推荐一个VSCode插件，`Jest Runner`，这个插件会在`.test.js`、`.test.ts`、`.test.tsx`中，渲染几个按钮选项：
 
-![run_debug](https://static.youfindme.cn/blog/jest_techniques/run_debug.png)
+![run_debug](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/run_debug.png)
 
 点击`Run`或`Debug`，可以只运行或调试某一个`test`或者`describe`，不需要重新全局`npm run test`也不用单独`jest`执行这个文件，极大提高写单测的效率：
 
-![run_debug_result](https://static.youfindme.cn/blog/jest_techniques/run_debug_result.png)
+![run_debug_result](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/jest_techniques/run_debug_result.png)
 
 这个插件只针对`.test.js`、`.test.ts`、`.test.tsx`这几个文件类型有效，所以这也是上面建议单测文件使用使用`.test.js`、`.test.ts`、`.test.tsx`命名的原因之一。
 

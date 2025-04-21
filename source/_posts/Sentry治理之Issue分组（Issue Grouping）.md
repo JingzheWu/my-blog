@@ -17,7 +17,7 @@ Sentry大家应该都不陌生，即便没有使用过，也应该听过Sentry�
 
 在Sentry中，每一条日志上报都是一个事件（Event）,在Sentry的Discover面板中，我们可以看到所有上报的Event，比如我这个项目：
 
-![Discover面板](https://static.youfindme.cn/blog/sentry_issue_grouping/discover.png)
+![Discover面板](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/discover.png)
 
 Event分为两种类型，Transaction和Error。
 
@@ -29,7 +29,7 @@ Error事件主要用于错误跟踪。它记录了应用运行过程中发生的
 
 Sentry的Issue可以在Issues面板中看到，如下图所示：
 
-![Issue面板](https://static.youfindme.cn/blog/sentry_issue_grouping/issues.png)
+![Issue面板](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/issues.png)
 
 从这个面板可以看到某个Issue（即某个类型的Error），上报了几次，有多少用户遇到了这个Error，以及这个Error数量变化的趋势，帮助我们快速确认问题的严重程度和影响范围。
 
@@ -39,7 +39,7 @@ Sentry的Issue可以在Issues面板中看到，如下图所示：
 
 但是在我们的项目里，Sentry好像并不是这么做的，比如下图：
 
-![重复的Issue](https://static.youfindme.cn/blog/sentry_issue_grouping/repeat_issues.png)
+![重复的Issue](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/repeat_issues.png)
 
 说好的自动聚合分组呢？
 
@@ -49,7 +49,7 @@ Sentry的Issue可以在Issues面板中看到，如下图所示：
 
 而且有时候即便我们手动Ignore某个Issue，未来还是会不断地有新的这个Issue出现，或者我们像下面这样手动Merge两个Issue，也还是会源源不断地产生新的、没有被Merge进手动Merge的分组内的Issue。
 
-![手动Merge](https://static.youfindme.cn/blog/sentry_issue_grouping/merge_issues.png)
+![手动Merge](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/merge_issues.png)
 
 ## 四、研究下Sentry是怎么对Error分组的
 
@@ -67,7 +67,7 @@ Sentry会根据某种规则，来给每一个Event生成Fingerprint，具有相�
 
 从Discover或者Issues列表中，随便点击一个进入Error详情（Transaction不行，下面会讲原因），点击查看这个Error对应原始JSON数据：
 
-![查看原始JSON](https://static.youfindme.cn/blog/sentry_issue_grouping/issue_detail_json.png)
+![查看原始JSON](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/issue_detail_json.png)
 
 在原始JSON中搜索fingerprint字段，可以看到如下所示：
 
@@ -94,7 +94,7 @@ Sentry会根据某种规则，来给每一个Event生成Fingerprint，具有相�
 
 每次新建一个Project，都会自动使用目前最新版本的Fingerprint生成规则，如果想要现有的Project升级到最新的Fingerprint生成规则，需要在设置里手动修改，具体位置为：**Settings > Project > [Your Project] > Processing > Issue Grouping > Upgrade Grouping**.如下图：
 
-![升级分组](https://static.youfindme.cn/blog/sentry_issue_grouping/upgrade_grouping.png)
+![升级分组](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/upgrade_grouping.png)
 
 所有版本的Fingerprint生成规则都是最先考虑`Stack Trace`，然后是`Exception`, 最后是`message`。
 
@@ -255,7 +255,7 @@ err.name = 'MyMockError';
 
 我们的JS项目由于某种原因，在编译后没有把Source Maps上传到Sentry，导致代码的变量名、函数名、代码结构等在不同版本或者不同的构建记录后，都会发生变化，所以即便某个Issue被Ignore或者被手动Merge，到下一个版本，由于同一个Error的调用栈变化了，生成了完全不同的Fingerprint，导致没有被分为一组。
 
-![混淆压缩后的代码的调用栈](https://static.youfindme.cn/blog/sentry_issue_grouping/mixed_call_stack.png)
+![混淆压缩后的代码的调用栈](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/mixed_call_stack.png)
 
 > **💡注意：**
 > 代码混淆之后并不是会让Sentry没办法对Error生成Fingerprint以及分组，即使代码被混淆和压缩，只要所有用户都使用的是同一份混淆和压缩后的代码，那么同一个地方的Error应该会生成相同的堆栈跟踪，Sentry应该能够正确地将这些错误分到同一组。
@@ -288,7 +288,7 @@ err.name = 'MyMockError';
 
 在Sentry项目的Issues列表中，手动选择2或者更多个Issue，然后点击Merge，即可合并为一个分组。
 
-![手动Merge](https://static.youfindme.cn/blog/sentry_issue_grouping/merge_issues.png)
+![手动Merge](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/merge_issues.png)
 
 需要注意的是，Sentry并不会根据我们如何手动Merge，来改变或者推断出任何新的分组规则，新产生的Issue还是会按照之前的规则来分组，然后根据放到我们手动Merge的Issue集合中。
 
@@ -304,7 +304,7 @@ err.name = 'MyMockError';
 
 或者旧版本中为：**Settings > Project > [Your Project] > General Settings > Custom Grouping Enhancements**。
 
-![Stack Trace Rules](https://static.youfindme.cn/blog/sentry_issue_grouping/stack_trace_rules.png)
+![Stack Trace Rules](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/stack_trace_rules.png)
 
 修改Stack Trace Rules会影响**输入到Stack Trace分组算法中的数据**。我们可以通过规则来改变哪些stack trace frames被视为"in-app"，这会影响Sentry如何将Issue分组。例如，我们可以将某些通常被视为"not in-app"的frames标记为"in-app"，这样它们就会被包含在分组算法中。
 
@@ -343,7 +343,7 @@ stack.abs_path:**/generated/**.js         -group
 
 或者旧版本中为：**Settings > Project > [Your Project] > General Settings > Server Side Fingerprinting**。
 
-![Fingerprint Rules](https://static.youfindme.cn/blog/sentry_issue_grouping/fingerprint_rules.png)
+![Fingerprint Rules](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/fingerprint_rules.png)
 
 Fingerprint Rules的配置方式和Stack Trace Rules类似，只有语法上不同。但是和Stack Trace Rules不同的是，Fingerprint Rules允许我们直接指定一个Issue的Fingerprint，它会完全覆盖默认的分组规则。
 
@@ -538,15 +538,15 @@ logger:my.package.* level:error -> error-logger, {{ logger }} title="Error from 
 
 **自定义标题前：**
 
-![自定义标题前](https://static.youfindme.cn/blog/sentry_issue_grouping/issue_before_rename.png)
+![自定义标题前](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/issue_before_rename.png)
 
 **自定义标题后：**
 
-![自定义标题后](https://static.youfindme.cn/blog/sentry_issue_grouping/issue_after_rename.png)
+![自定义标题后](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/issue_after_rename.png)
 
 在设置了自定义标题后，就可以在Error的原始JSON数据中看到title发生了变化：
 
-![自定义标题后的JSON](https://static.youfindme.cn/blog/sentry_issue_grouping/title_changed_in_json.png)
+![自定义标题后的JSON](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/title_changed_in_json.png)
 
 > **🔔 注意：**
 >
@@ -560,7 +560,7 @@ logger:my.package.* level:error -> error-logger, {{ logger }} title="Error from 
 
 其实我们直接查看对于的JSON数据即可，如果匹配上的话，会看到下图这样：
 
-![匹配上的JSON](https://static.youfindme.cn/blog/sentry_issue_grouping/finger_print_in_json.png)
+![匹配上的JSON](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/finger_print_in_json.png)
 
 我们可以在_fingerprint_info中看到当前Event的各种信息
 
@@ -571,7 +571,7 @@ logger:my.package.* level:error -> error-logger, {{ logger }} title="Error from 
 
 如果是旧版Sentry的话，这里就没有`_fingerprint_info`这个字段了，同时会把我们设置的title认为是Fingerprint的一部分，会是下面这样：
 
-![旧版Sentry的JSON](https://static.youfindme.cn/blog/sentry_issue_grouping/old_version_custom_title_in_json.png)
+![旧版Sentry的JSON](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/old_version_custom_title_in_json.png)
 
 ### 5. SDK Fingerprint
 
@@ -710,13 +710,13 @@ Sentry平台内置了一些可以直接启用的过滤器，这些过滤器包�
 
 这些过滤器可能和不同版本的Sentry有关，比较旧的版本中，可能会缺少一些过滤器。
 
-![内置过滤器](https://static.youfindme.cn/blog/sentry_issue_grouping/built_in_filters.png)
+![内置过滤器](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/built_in_filters.png)
 
 #### 6.2 自定义过滤器
 
 可以创建自定义过滤器，目前支持以下三种，以下三种在匹配时，都是大小写不敏感的。
 
-![自定义过滤器](https://static.youfindme.cn/blog/sentry_issue_grouping/custom_filters.png)
+![自定义过滤器](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/custom_filters.png)
 
 ##### a. 特定IP地址
 
@@ -749,7 +749,7 @@ Sentry.init({
 
 在设置好过滤器之后，我们就可以看到有多少Event被过滤掉了：
 
-![过滤掉的Event](https://static.youfindme.cn/blog/sentry_issue_grouping/filterd_issues.png)
+![过滤掉的Event](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/sentry_issue_grouping/filterd_issues.png)
 
 ## 五、治理
 

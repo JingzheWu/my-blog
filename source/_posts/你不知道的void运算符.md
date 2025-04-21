@@ -123,7 +123,7 @@ console.log(foo === void 0);    // true
 2. `href`值为空
 3. `href`值为`javascript: void(0);`
 
-![image.png](https://static.youfindme.cn/blog/void_operator/different_a_link.png)
+![image.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/void_operator/different_a_link.png)
 
 可以看到还是有一些区别的。
 

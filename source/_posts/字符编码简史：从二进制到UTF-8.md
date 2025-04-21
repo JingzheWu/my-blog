@@ -466,11 +466,11 @@ JS中是允许用码位来表示字符的，表示方式是`\u{xxxx}`，即反�
 
 在sublime中输入一个字符，然后以某种编码格式保存，我们这里分别用UTF-8，UTF-16 BE，UTF-16 LE来保存：
 
-![save_by_sublime.png](https://static.youfindme.cn/blog/character_encoding/save_by_sublime.png)
+![save_by_sublime.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/character_encoding/save_by_sublime.png)
 
 然后打开终端，通过`xbb -b`命令分别查看三个文件的二进制内容：
 
-![show_binary.png](https://static.youfindme.cn/blog/character_encoding/show_binary.png)
+![show_binary.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/character_encoding/show_binary.png)
 
 可以看到二进制内容，和上面讲到的是完全一致的。
 

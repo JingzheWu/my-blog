@@ -21,13 +21,13 @@ SSR，即Server Side Render，服务端渲染。和服务端渲染相对的，�
 
 在讨论为什么需要SSR之前，我们先来看看常见的CSR，比如下面这个很简单的React渲染的页面：
 
-![page_overview.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/page_overview.png)
+![page_overview.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/page_overview.png)
 
 页面包含一个count计数，点击“Increment”、“Decrement”和“Reset”按钮，分别可以增加计数，减小计数以及重设计数。
 
 现在我们打开DevTool，看看访问这个地址的时候服务端返回的内容：
 
-![csr_html_content.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/csr_html_content.png)
+![csr_html_content.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/csr_html_content.png)
 
 从DevTool可以看到，服务端一共返回了两个文件，一个HTML一个JS。
 
@@ -47,11 +47,11 @@ SEO，也就是Search Engine Optimization，搜索引擎优化。CSR应用从服
 
 衡量首屏加载性能的指标有很多，我们这里用常用的[FCP（First Contentful Paint）](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint?utm_source=devtools)，即“首次内容渲染”时间来看下这个页面的表现。由于我们这个页面太过简单，而且是在本地`127.0.0.1`启动的服务，所以直接感受可能不明显，我们可以在DevTool里设置网络状态，改成“低速3G”来模拟：
 
-![csr_network_panel.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/csr_network_panel.png)
+![csr_network_panel.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/csr_network_panel.png)
 
 而FCP除了可以用`performance` API获取到之外，也可以直接在Chrome DevTool的“性能”面板，通过点击面板里的“重新加载”按钮录制得到：
 
-![csr_perf_panel.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/csr_perf_panel.png)
+![csr_perf_panel.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/csr_perf_panel.png)
 
 从上面的网络瀑布和性能面板可以看到，在“低速3G”的网络状态下，页面在获取到2.01s获取到HTML后，并没有渲染任何内容，而是在又等了4.76s等到JS下载完成之后，才渲染出内容，页面的FCP总计是6822.2ms。
 
@@ -344,7 +344,7 @@ module.exports = {
 
 执行`npm run dev:server`以及`npm start`之后，打开`127.0.0.1:3007`或者`localhost:3007`看下：
 
-![ssr_no_js.gif](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_no_js.gif)
+![ssr_no_js.gif](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_no_js.gif)
 
 果然，这次服务端返回的HTML不再是空的了，页面上的元素直接就可以在HTML中看到。
 
@@ -408,11 +408,11 @@ npm start
 
 打开`127.0.0.1:3007`或者`localhost:3007`看下：
 
-![ssr_render.gif](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_render.gif)
+![ssr_render.gif](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_render.gif)
 
 看起来好像OK了，既有服务端渲染（返回的HTML不为空，直接就有页面上的元素），又有客户端渲染（事件绑定成功，有页面交互）。但是如果这个时候你查看一下控制台的话，会发现会有一个Waring：
 
-![ssr_render_warn.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_render_warn.png)
+![ssr_render_warn.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_render_warn.png)
 
 说是调用`ReactDOM.render()`去渲染（水合，或者说注水）一个服务端渲染的页面的行为会在React 18停止支持。
 
@@ -466,7 +466,7 @@ npm start
 
 访问`127.0.0.1:3007`或者`localhost:3007`，发现已经没有Waring了：
 
-![ssr_hydrate_no_warn.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_hydrate_no_warn.png)
+![ssr_hydrate_no_warn.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_hydrate_no_warn.png)
 
 ### 3. hydrate和render的区别
 
@@ -500,9 +500,9 @@ React将会附加到`domNode`内部现有的HTML，并接管有关的DOM的管�
 
 其次，我们来看一下首屏的加载时间，还是通过设置DevTool里设置网络状态，改成“低速3G”来看一下FCP：
 
-![ssr_network_panel.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_network_panel.png)
+![ssr_network_panel.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_network_panel.png)
 
-![ssr_perf_panel.png](https://static.youfindme.cn/blog/react_ssr_from_scratch/ssr_perf_panel.png)
+![ssr_perf_panel.png](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/react_ssr_from_scratch/ssr_perf_panel.png)
 
 从上面可以看到，虽然网络面板内的HTML和JS整体的加载时间和之前几乎一样（都是6.8s左右），但是从性能面板里可以看到，页面的FCP是2043.2ms，比之前的6822.2ms少了将近70%。
 
