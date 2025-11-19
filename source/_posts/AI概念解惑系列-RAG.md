@@ -357,11 +357,9 @@ LLM通过预训练，让模型学习了全网公开的知识（网页、书籍�
 
 2. **安装证书**
 
-   ```bash
    sudo cp cert.pem /etc/ssl/certs/
    sudo cp key.pem /etc/ssl/private/
-   # ...
-   ```
+   ...
 
 3. ...
 
@@ -432,7 +430,7 @@ LLM通过预训练，让模型学习了全网公开的知识（网页、书籍�
    | | 组成 | 作用 |
    | --- | --- | --- |
    | Transformer | Encoder编码器 | 理解输入，提取特征 |
-   | | Decoder解码器 | 生成输出，逐字生成 |
+   | Transformer | Decoder解码器 | 生成输出，逐字生成 |
 
 Embedding模型主要用的是Encoder，大语言模型主要用Decoder。而Embedding模型之所以比LLM小很多（如BGE-base-zh只有400M），主要是因为它的任务相对简单（映射到向量空间），不需要生成能力，也就不需要记忆海量知识和复杂的推理能力。
 
