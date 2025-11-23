@@ -159,7 +159,7 @@ LLM通过预训练，让模型学习了全网公开的知识（网页、书籍�
 
 ![向量空间](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/ai_rag/vector_space.png)
 
-另外，向量化除了叫做Vectorization外，也时候也会叫做**Embedding，嵌入**。这是因为向量化的过程，不只是将一个非结构化数据转为向量数字，更重要的是在这个过程中，将原始数据的语义信息嵌入到了向量空间中,使得语义关系被保留。
+另外，向量化除了叫做Vectorization外，有时候也会叫做**Embedding，嵌入**。这是因为向量化的过程，不只是将一个非结构化数据转为向量数字，更重要的是在这个过程中，将原始数据的语义信息嵌入到了向量空间中,使得语义关系被保留。
 
 举个例子，通常情况下“国王King”和“王后Queen”常出现在相似的上下文中，“男人Man”和“女人Women”经常出现在相似的上下文中。
 
@@ -438,7 +438,31 @@ LLM通过预训练，让模型学习了全网公开的知识（网页、书籍�
    | Encoder编码器 | 理解输入，提取特征 |
    | Decoder解码器 | 生成输出，逐字生成 |
 
-Embedding模型主要用的是Encoder，大语言模型主要用Decoder。而Embedding模型之所以比LLM小很多（如BGE-base-zh只有400M），主要是因为它的任务相对简单（映射到向量空间），不需要生成能力，也就不需要记忆海量知识和复杂的推理能力。
+   Embedding模型主要用的是Encoder，大语言模型主要用Decoder。而Embedding模型之所以比LLM小很多（如BGE-base-zh只有400M），主要是因为它的任务相对简单（映射到向量空间），不需要生成能力，也就不需要记忆海量知识和复杂的推理能力。
+
+4. **说了这么多RAG相关的原理，这项技术的常用场景有哪些呢？**
+   既然RAG就是通过一系列手段，给LLM添加了外挂知识库，那么它的主要应用场景也肯定和这些有关了，常见的有：
+   - 企业知识库问答：基于公司内部文档（往往是私有的）回答问题
+   - 客户支持：检索产品手册提供技术支持
+   - 法律/医疗咨询：检索专业文献提供建议
+   - 实时信息查询：获取最新新闻、股价等动态信息
+
+   当然除了这些外，作为程序开发的我们平时最常用到的AI IDE（比如Cursor），也是用了这项技术。以Cursor为例，它能读取我们整个项目，基于整个项目的代码来回答问题或者完成工作。那难道Cursor是把我们所有代码都放到云端或者喂给LLM了吗？
+
+   当然不是，Cursor是**把整个项目的代码（Chunking之后）做了向量化**，之后把
+    1. 项目所有的**向量**
+    2. 向量对应的**文件的相对路径**（被混淆过）
+    3. 向量对应的**源代码在文件里行列的范围**
+
+   把这三者存储到了云端，之后在用户和Cursor的Chat Interface对话的时候，通过RAG来识别项目中的相关代码，得到相关向量的混淆的相对路径+源代码的行列范围，之后服务端返回给Cursor Client，在客户端完整解密并喂给LLM。
+
+   这些可以通过[Cursor的官方文档](https://cursor.com/cn/docs/context/codebase-indexing)以及[相关安全说明](https://cursor.com/cn/security#codebase-indexing)中看到。
+
+   ![Cursor官方文档](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/ai_rag/cursor_indexing_docs.png)
+
+   同时，打开Cursor的`Cursor Settings` > `Indexing & Docs`，也能看到当前项目是否被向量化了。
+
+   ![Cursor Settings](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/ai_rag/cursor_settings.png)
 
 ## 十、 小结
 
@@ -463,6 +487,8 @@ Embedding模型主要用的是Encoder，大语言模型主要用Decoder。而Emb
 - 文本分块时可能会同时使用语义分块+滑动窗口分块
 - Retrieval阶段可能不只是用向量相似度检索，会使用向量相似度+关键词（如BM25）的混合检索
   - 为什么？因为向量相似度只对语义敏感，对关键词不敏感，比如“Python 3.12”和“Python 3.13”的向量基本相同，但是用户可能是提问具体Python版本的问题
+  - 同时Cursor等AI IDE也是这样做的，在[Cursor的文档](https://cursor.com/cn/docs/context/codebase-indexing#-9)里可以看到相关描述：
+  ![Cursor同时使用向量相似度+关键词检索](https://youfindme-1254464911.cos.ap-hongkong.myqcloud.com/blog/ai_rag/cursor_grep.png)
 - 在Retrieval检索后还可能存在一个Reranking重排的步骤
   - 对候选片段进行精细化打分和排序
 - 对于用户的问题Query可能会增加一个Query Rewriting
